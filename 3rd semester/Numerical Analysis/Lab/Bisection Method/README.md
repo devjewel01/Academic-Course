@@ -2,7 +2,7 @@
 Given a function f(x) on floating number x and two numbers ```a``` and ```b``` such that ```f(a)*f(b) < 0``` and f(x) is continuous in [a, b]. Here f(x) represents algebraic or transcendental equation. Find root of function in interval [a, b]  ( Or find a value of x such that f(x) is 0 ).
 
 
-**Example: **
+###### Example:
  
 ```
 Input: A function of x, for example x3 - x2 + 2.     
