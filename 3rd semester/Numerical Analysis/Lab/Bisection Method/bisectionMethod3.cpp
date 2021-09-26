@@ -3,17 +3,17 @@
 using namespace std;
  
 //function used is x^3-2x^2+3
-double func(double x)
+double Function(double x)
 {
     return x*x*x - 2*x*x + 3;
 }
  
-double e=0.01;
+double e=0.001;
 double c;
  
 void bisection(double a,double b)
 {
-    if(func(a) * func(b) >= 0)
+    if(Function(a) * Function(b) >= 0)
     {
         cout<<"Incorrect a and b";
         return;
@@ -24,17 +24,21 @@ void bisection(double a,double b)
     while ((b-a) >= e)
     {
         c = (a+b)/2;
-        if (func(c) == 0.0){
+        if (Function(c) == 0.0)
+        {
             cout << "Root = " << c<<endl;
             break;
         }
-        else if (func(c)*func(a) < 0){
-                cout << "Root = " << c<<endl;
-                b = c;
+        
+        if(Function(c)*Function(a) < 0)
+        {
+            cout << "Root = " << c<<endl;
+            b = c;
         }
-        else{
-                cout << "Root = " << c<<endl;
-                a = c;
+        else
+        {
+            cout << "Root = " << c<<endl;
+            a = c;
         }
     }
 }

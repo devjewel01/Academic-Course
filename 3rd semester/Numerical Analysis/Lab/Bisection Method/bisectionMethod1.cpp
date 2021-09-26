@@ -1,53 +1,52 @@
-#include<stdio.h>
-#include<conio.h>
-#include<math.h>
-/*
- Defining equation to be solved.
- Change this equation to solve another problem.
-*/
-#define f(x) cos(x) - x * exp(x)
+#include<bits/stdc++.h>
+using namespace std;
 
-void main()
+#define  f(x)  ( cos(x) - x * exp(x) )
+
+int main()
 {
-	 float x0, x1, x2, f0, f1, f2, e;
+	 float a, b, c, fa, fb, fc, e;
 	 int step = 1;
-	 clrscr();
-	 /* Inputs */
-	 up:
-	 printf("\nEnter two initial guesses:\n");
-	 scanf("%f%f", &x0, &x1);
-	 printf("Enter tolerable error:\n");
-	 scanf("%f", &e);
-	 /* Calculating Functional Value */
-	 f0 = f(x0);
-	 f1 = f(x1);
-	 /* Checking whether given guesses brackets the root or not. */
-	 if( f0 * f1 > 0.0)
+	 
+	start:
+	printf("\nEnter two initial guesses:\n");
+	cin>>a>>b;
+	printf("Enter tolerable error:\n");
+	cin>>e;
+	 
+	 fa = f(a);
+	 fb = f(b);
+
+
+	 if( fa*fb > 0.0)
 	 {
 		  printf("Incorrect Initial Guesses.\n");
-		  goto up;
+		  goto start;
 	 }
-   /* Implementing Bisection Method */
+
+
 	 printf("\nStep\t\tx0\t\tx1\t\tx2\t\tf(x2)\n");
 	 do
 	 {
-		  x2 = (x0 + x1)/2;
-		  f2 = f(x2);
+		  c = (a + b)/2;
+		  fc = f(c);
 		
-		  printf("%d\t\t%f\t%f\t%f\t%f\n",step, x0, x1, x2, f2);
+		  printf("%d\t\t%f\t%f\t%f\t%f\n",step, a, b, c, fc);
 		
-		  if( f0 * f2 < 0)
+		  if( fa * fc < 0)
 		  {
-			   x1 = x2;
-			   f1 = f2;
+			   b = c;
+			   fb = fc;
 		  }
 		  else
 		  {
-			   x0 = x2;
-			   f0 = f2;
+			   a = c;
+			   fa = fc;
 		  }
 		  step = step + 1;
-	 }while(fabs(f2)>e);
-	 printf("\nRoot is: %f", x2);
-	 getch();
+	 }
+	 while(fabs(fc)>e);
+
+	 printf("\nRoot is: %f", c);
+	 return 0;
 }
