@@ -17,6 +17,7 @@ int main()
 
 
 	int result = search(arr, n, x);
+	
 	if(result == -1)
 		cout << "Element is not present in array" <<endl;
 	else

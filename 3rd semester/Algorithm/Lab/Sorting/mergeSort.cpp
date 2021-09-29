@@ -1,85 +1,61 @@
-// Merge sort in C++
-
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
-// Merge two subarrays L and M into arr
-void merge(int arr[], int p, int q, int r) {
-  
-  // Create L ← A[p..q] and M ← A[q+1..r]
-  int n1 = q - p + 1;
-  int n2 = r - q;
-
-  int L[n1], M[n2];
-
-  for (int i = 0; i < n1; i++)
-    L[i] = arr[p + i];
-  for (int j = 0; j < n2; j++)
-    M[j] = arr[q + 1 + j];
-
-  // Maintain current index of sub-arrays and main array
-  int i, j, k;
-  i = 0;
-  j = 0;
-  k = p;
-
-  // Until we reach either end of either L or M, pick larger among
-  // elements L and M and place them in the correct position at A[p..r]
-  while (i < n1 && j < n2) {
-    if (L[i] <= M[j]) {
-      arr[k] = L[i];
-      i++;
-    } else {
-      arr[k] = M[j];
-      j++;
+void merge(int *array, int low, int mid, int high)
+{
+    int i, j, k, tmp[100];
+    i = low, j = mid+1, k=low;
+    while(i <= mid && j <= high)
+    {
+        if(array[i] <= array[j])
+        {
+            tmp[k]=array[i];
+            i++; k++;
+        }
+        else
+        {
+            tmp[k]=array[j];
+            j++; k++;
+        }
     }
-    k++;
-  }
+    while(i<=mid)
+    {
+        tmp[k]=array[i];
+        i++; k++;
+    }
+    while(j<=high)
+    {
+        tmp[k]=array[j];
+        j++; k++; 
+    }
+    for(i=low; i<=high; i++)
+        array[i]=tmp[i];
+}
+void mergeSort(int *array, int low, int high)
+{
+    if(low>=high)
+        return;
+    int mid = (low+high)/2;
 
-  // When we run out of elements in either L or M,
-  // pick up the remaining elements and put in A[p..r]
-  while (i < n1) {
-    arr[k] = L[i];
-    i++;
-    k++;
-  }
+    mergeSort(array, low, mid);
+    mergeSort(array, mid+1, high);
 
-  while (j < n2) {
-    arr[k] = M[j];
-    j++;
-    k++;
-  }
+    merge(array, low, mid, high);
 }
 
-// Divide the array into two subarrays, sort them and merge them
-void mergeSort(int arr[], int l, int r) {
-  if (l < r) {
-    // m is the point where the array is divided into two subarrays
-    int m = l + (r - l) / 2;
+int main()
+{
+    int array[] = {764, 74, 4, 764, 864, 64, 74, 94, 974, 84, 94, 94, 974, 84, 94, 974, 84};
+    int n = sizeof(array)/sizeof(array[0]);
 
-    mergeSort(arr, l, m);
-    mergeSort(arr, m + 1, r);
 
-    // Merge the sorted subarrays
-    merge(arr, l, m, r);
-  }
-}
+    mergeSort(array, 0, n-1);
+    
+    for(int i=0; i<n; i++)
+    {
+        cout<<array[i]<<" ";
+    }
+    cout<<endl;
 
-// Print the array
-void printArray(int arr[], int size) {
-  for (int i = 0; i < size; i++)
-    cout << arr[i] << " ";
-  cout << endl;
-}
-
-// Driver program
-int main() {
-  int arr[] = {6, 5, 12, 10, 9, 1};
-  int size = sizeof(arr) / sizeof(arr[0]);
-
-  mergeSort(arr, 0, size - 1);
-
-  cout << "Sorted array: \n";
-  printArray(arr, size);
-  return 0;
+    return 0;
 }
